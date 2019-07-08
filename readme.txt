@@ -29,7 +29,7 @@ dotnet build
 configure connections to Microsoft SQL Database
 ===============================================
 "ConnectionStrings": {
-  "SqlConnection": "Server=BREFTLPT008\\SQLEXPRESS; Database=NORTHWND;Trusted_Connection=True;User Id=realm;Password=friend;Integrated Security=false;MultipleActiveResultSets=true"
+  "SqlConnection": "Server=BREFTLPT008\\SQLEXPRESS; Database=NORTHWND;Trusted_Connection=True;User Id=xxxx;Password=xxxx;Integrated Security=false;MultipleActiveResultSets=true"
 }
 
 ConfigureServices in Startup.cs
