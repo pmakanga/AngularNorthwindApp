@@ -51,13 +51,13 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 Use the Code Generation Tools package to generate all models that represent all tables in the Northwind Database
 =================================================================================================================
-dotnet ef dbcontext scaffold "Server=BREFTLPT008\SQLEXPRESS;Database=NORTHWND;Trusted_Connection=True;User Id=realm;Password=friend;Integrated Security=false;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+dotnet ef dbcontext scaffold "Server=.\SQLEXPRESS;Database=NORTHWND;Trusted_Connection=True;User Id=xxxx;Password=xxxx;Integrated Security=false;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 
 Specific Tables
-Scaffold-DbContext 'Server=BREFTLPT008\SQLEXPRESS;Database=AuditDB;Trusted_Connection=True;User Id=realm;Password=friend;Integrated Security=false;' Microsoft.EntityFrameworkCore.SqlServer -o Models -Tables Audits, Books, Users
+Scaffold-DbContext 'Server=.\SQLEXPRESS;Database=AuditDB;Trusted_Connection=True;User Id=xxxx;Password=xxxx;Integrated Security=false;' Microsoft.EntityFrameworkCore.SqlServer -o Models -Tables Audits, Books, Users
 
 Specific Tables and Specific DbContext Folder
-Scaffold-DbContext 'Server=BREFTLPT008\SQLEXPRESS;Database=AuditDB;Trusted_Connection=True;User Id=realm;Password=friend;Integrated Security=false;' Microsoft.EntityFrameworkCore.SqlServer -ContextDir DataContext -OutputDir Models -Tables Audits, Books, Users
+Scaffold-DbContext 'Server=.\SQLEXPRESS;Database=AuditDB;Trusted_Connection=True;User Id=xxxx;Password=xxxx;Integrated Security=false;' Microsoft.EntityFrameworkCore.SqlServer -ContextDir DataContext -OutputDir Models -Tables Audits, Books, Users
 
 4. Create DTO (Data Transfer Object) for Request Body and Response
 ------------------------------------------------------------------
