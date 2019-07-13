@@ -8,8 +8,20 @@ import { SupplierDetailComponent } from './supplier-detail/supplier-detail.compo
 import { SupplierAddComponent } from './supplier-add/supplier-add.component';
 import { SupplierEditComponent } from './supplier-edit/supplier-edit.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MatIconModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -23,7 +35,17 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
