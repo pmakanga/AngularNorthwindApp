@@ -6,18 +6,22 @@ import { Supplier } from '../_models/supplier';
 @Component({
   selector: 'app-supplier',
   templateUrl: './supplier.component.html',
-  styleUrls: ['./supplier.component.scss']
+  styleUrls: ['./supplier.component.css']
 })
 export class SupplierComponent implements OnInit {
 
   // variables for angular material Table Data Source
-  displayColums: string[] = ['supplierId', 'companyName', 'contactName'];
+
+
+  displayedColumns: string[] = ['supplierId', 'companyName', 'contactName'];
   data: Supplier[] = [];
   isLoadingResults = true;
-  constructor(private supplierService: SupplierService) { }
+
+
+  constructor(private api: SupplierService) { }
 
   ngOnInit() {
-    this.supplierService.getSuppliers()
+    this.api.getSuppliers()
       .subscribe(res => {
         this.data = res;
         console.log(this.data);

@@ -22,6 +22,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule } from '@angular/material';
+import { SupplierService } from './_services/Supplier.service';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
@@ -47,7 +50,7 @@ import {
     MatCardModule,
     MatFormFieldModule
   ],
-  providers: [],
+  providers: [SupplierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

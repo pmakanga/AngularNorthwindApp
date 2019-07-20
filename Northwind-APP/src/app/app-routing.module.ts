@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/Supplier',
+    redirectTo: '/supplier',
     pathMatch: 'full'
   }
 ];

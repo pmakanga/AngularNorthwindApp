@@ -4,11 +4,16 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Supplier } from '../_models/supplier';
 
+// const httpOptions = {
+//     headers: new HttpHeaders({'Content-Type' : 'application/json'})
+// };
+
 const httpOptions = {
-    headers: new HttpHeaders({'Content-Type' : 'application/json'})
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-const apiUrl = 'http://localhost:5000/api/';
+// const apiUrl = 'http://localhost:5000/api/';
+const apiUrl = 'http://localhost:5000/api/Supplier';
 
 @Injectable()
 export class SupplierService {
@@ -26,11 +31,12 @@ private handleError<T> (operation = 'operation', result?: T) {
     };
   }
 
-  // Fetch all suppliers
-  getSuppliers(): Observable<Supplier[]> {
-      return this.http.get<Supplier[]>(apiUrl)
-        .pipe(tap(s => console.log('Fetched Suppliers')),
-        catchError(this.handleError('getSuppliers', [])));
+  getSuppliers (): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(apiUrl)
+      .pipe(
+        tap(res => console.log('fetched Suppliers')),
+        catchError(this.handleError('getSuppliers', []))
+      );
   }
 
   // Fetch supplier by Id
@@ -43,7 +49,7 @@ private handleError<T> (operation = 'operation', result?: T) {
 
     // Add Supplier
     addSupplier(supplier: any): Observable<Supplier> {
-        return this.http.post<Supplier>(apiUrl, supplier, httpOptions).pipe(
+        return this.http.post<Supplier>(`${apiUrl}`, supplier, httpOptions).pipe(
             tap((res: Supplier) => console.log(`added Supplier w/ id=${res.supplierId}`)),
             catchError(this.handleError<Supplier>('addSupplier'))
         );
