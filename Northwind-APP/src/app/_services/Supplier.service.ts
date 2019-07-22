@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Supplier } from '../_models/supplier';
@@ -63,6 +63,7 @@ private handleError<T> (operation = 'operation', result?: T) {
       catchError(this.handleError<any>('updateSupplier')));
   }
 
+
   // Delete Supplier
   deleteSupplier(id: number):Observable<Supplier> {
       const url = `${apiUrl}/${id}`;
@@ -70,5 +71,21 @@ private handleError<T> (operation = 'operation', result?: T) {
       (tap(s => console.log('deleted Supplier id=${id}')),
       catchError(this.handleError<Supplier>('deleteSupplier')));
   }
+
+  // Find Suppliers (search, paginate and sort)
+  findSuppliers(
+    supplierId: number, filter = '', sortOrder = 'asc',
+    pageNumber = 0, pageSize = 3): Observable<Supplier[]> {
+      return this.http.get(apiUrl, {
+        params: new HttpParams()
+          .set('supplierId', supplierId.toString())
+          .set('filter', filter)
+          .set('sortOrder', sortOrder)
+          .set('pageNumber', pageNumber.toString())
+          .set('pageSize', pageSize.toString())
+      }).pipe(
+        map(res => res[`${apiUrl}`]) // not sure to be checked on
+      )
+    }
 
 }
