@@ -32,7 +32,7 @@ namespace NorthWind.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<NORTHWNDContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
             services.AddCors();
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IDataRepository<>), typeof(DataRepository<>));
         }
 

@@ -72,20 +72,19 @@ private handleError<T> (operation = 'operation', result?: T) {
       catchError(this.handleError<Supplier>('deleteSupplier')));
   }
 
-  // Find Suppliers (search, paginate and sort)
+  // Find Suppliers (search, filter, paginate and sort)
   findSuppliers(
-    supplierId: number, filter = '', sortOrder = 'asc',
+    filter = '', sortOrder = 'asc',
     pageNumber = 0, pageSize = 3): Observable<Supplier[]> {
       return this.http.get(apiUrl, {
         params: new HttpParams()
-          .set('supplierId', supplierId.toString())
+          // .set('supplierId', supplierId.toString())
           .set('filter', filter)
           .set('sortOrder', sortOrder)
           .set('pageNumber', pageNumber.toString())
           .set('pageSize', pageSize.toString())
       }).pipe(
-        map(res => res[`${apiUrl}`]) // not sure to be checked on
-      )
+        map(res => res as Supplier[]))
     }
 
 }

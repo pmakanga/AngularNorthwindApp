@@ -7,36 +7,35 @@ import { catchError, finalize } from 'rxjs/operators';
 
 export class SuppierDatasource implements DataSource<Supplier> {
 
-    private suppliers = new BehaviorSubject<Supplier[]>([]);
+    private suppliersSubject = new BehaviorSubject<Supplier[]>([]);
 
-    private loadingSupplier = new BehaviorSubject<boolean>(false);
+    private loadingSubject = new BehaviorSubject<boolean>(false);
 
-    private loading$ = this.loadingSupplier.asObservable();
+    public loading$ = this.loadingSubject.asObservable();
 
     constructor(private supplierService: SupplierService){}
 
-    loadSuppliers(supplierId: number,
-                  filter: string,
+    loadSuppliers(filter: string,
                   sortDirection: string,
                   pageIndex: number,
                   pageSize: number) {
 
-            this.loadingSupplier.next(true);
+            this.loadingSubject.next(true);
             
-            this.supplierService.findSuppliers(supplierId, filter, sortDirection, 
+            this.supplierService.findSuppliers(filter, sortDirection, 
                 pageIndex, pageSize).pipe(
                     catchError(() => of([])),
-                    finalize(() => this.loadingSupplier.next(false))
-                ).subscribe(res => this.suppliers.next(res))
+                    finalize(() => this.loadingSubject.next(false))
+                ).subscribe(res => this.suppliersSubject.next(res))
             }
 
     connect(collectionViewer: CollectionViewer): Observable<Supplier[]> {
         console.log("Connecting data source");
-        return this.suppliers.asObservable()
+        return this.suppliersSubject.asObservable()
     }    
     disconnect(collectionViewer: CollectionViewer): void {
-        this.suppliers.complete();
-        this.loadingSupplier.complete();
+        this.suppliersSubject.complete();
+        this.loadingSubject.complete();
     }
 
 }
