@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { SupplierService } from '../_services/Supplier.service';
 import { Supplier } from '../_models/supplier';
 import { SuppierDatasource } from '../_datasources/suppier.datasource';
-import { MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { MatPaginator, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -15,11 +15,12 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 })
 export class SupplierComponent implements OnInit, AfterViewInit {
 
-  supplier: Supplier
-
-  dataSourse: SuppierDatasource;
   // variables for angular material Table Data Source
-  displayedColumns: ['supplierId', 'companyName', 'contactName'];
+  displayedColumns: string[] = ['supplierId', 'companyName', 'contactName'];
+  dataSourse: SuppierDatasource;
+  supplier: Supplier[] = [];
+
+  productsCount = 100;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -34,9 +35,11 @@ export class SupplierComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private supplierService: SupplierService) { }
 
   ngOnInit() {
-    // this.supplier = this.route.snapshot.data["supplier"];
+    this.supplier = this.route.snapshot.data["supplier"];
 
     this.dataSourse = new SuppierDatasource(this.supplierService);
+
+    console.log(this.dataSourse);
 
     this.dataSourse.loadSuppliers( '', 'asc', 0, 3);
     // this.api.getSuppliers()
@@ -68,7 +71,10 @@ export class SupplierComponent implements OnInit, AfterViewInit {
       .pipe(
         tap(() => this.loadSuppliersPage())
       ).subscribe();
-      // this.paginator.page.pipe(tap(() => this.loadSuppliersPage())).subscribe();
+
+       this.paginator.page.pipe(tap(() => this.loadSuppliersPage())).subscribe();
+       // this.paginator.page.pipe(tap(() => this.loadSuppliersPage())).subscribe();
+      
   }
 
   loadSuppliersPage() {
